@@ -10,17 +10,17 @@ interface Movies {
     release_date: string;
 }
 
-const PopularMovies = () => {
+const TopRatedMovies = () => {
     const [movies, setMovies] = useState<Movies[]>([]);
     const apiKey = '605da0b99648ed33e3e074aa75e4db7f';
-    const popular = "https://api.themoviedb.org/3/movie/popular";
+    const top_rated = "https://api.themoviedb.org/3/movie/top_rated";
 
     useEffect(() => {
         fetchData();
     }, []);
 
     const fetchData = () => {
-        axios.get(popular, {
+        axios.get(top_rated, {
             params: {
                 api_key: apiKey,
                 language: 'de-DE'
@@ -77,4 +77,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PopularMovies;
+export default TopRatedMovies;

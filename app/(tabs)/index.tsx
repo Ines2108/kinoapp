@@ -4,6 +4,9 @@ import { Text, View } from '@/components/Themed';
 import { useState, useEffect } from "react";
 import axios from "axios";
 import PopularMovies from "@/components/PopularMovies";
+import CurrentCinemaMovies from "@/components/CurrentCinemaMovies";
+import UpcomingCinemaMovies from "@/components/UpcomingCinemaMovies";
+import TopRatedMovies from "@/components/TopRatedMovies";
 
 interface Movies {
   id: number;
@@ -15,25 +18,19 @@ interface Movies {
 export default function TabOneScreen() {
   const [movies, setMovies] = useState<Movies[]>([]);
   const apiKey = '605da0b99648ed33e3e074aa75e4db7f';
-  const popular = "https://api.themoviedb.org/3/movie/popular";
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = () => {
-    axios.get(`${popular}?api_key=${apiKey}`).then((response) => {
-      const result = response.data.results;
-      setMovies(result);
-    });
-  }
 
   return (
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.welcomeText}>Herzlich Willkommen bei unserer Kinoapp!</Text>
         <Text style={styles.infoText}>Hier findest du die neuesten Kinofilme, welche du jederzeit herzen und bewerten kannst. Du findest deine Filme unter "Favoriten".</Text>
-        <Text style={styles.headerText}>Top 20 TV Movies</Text>
+        <Text style={styles.headerText}>Derzeit beliebt</Text>
         <PopularMovies/>
+        <Text style={styles.headerText}>Aktuell im Kino</Text>
+        <CurrentCinemaMovies/>
+        <Text style={styles.headerText}>Bald im Kino</Text>
+        <UpcomingCinemaMovies/>
+        <Text style={styles.headerText}>Die besten Filme aller Zeiten</Text>
+        <TopRatedMovies/>
         <EditScreenInfo path="app/(tabs)/index.tsx" />
 
       </ScrollView>
