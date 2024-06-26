@@ -3,10 +3,10 @@ import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { useState, useEffect } from "react";
 import axios from "axios";
-import PopularMovies from "@/components/PopularMovies";
-import CurrentCinemaMovies from "@/components/CurrentCinemaMovies";
-import UpcomingCinemaMovies from "@/components/UpcomingCinemaMovies";
-import TopRatedMovies from "@/components/TopRatedMovies";
+import PopularMovies from "@/components/usedComponents/PopularMovies";
+import CurrentCinemaMovies from "@/components/usedComponents/CurrentCinemaMovies";
+import UpcomingCinemaMovies from "@/components/usedComponents/UpcomingCinemaMovies";
+import TopRatedMovies from "@/components/usedComponents/TopRatedMovies";
 
 interface Movies {
   id: number;
@@ -16,8 +16,6 @@ interface Movies {
 }
 
 export default function TabOneScreen() {
-  const [movies, setMovies] = useState<Movies[]>([]);
-  const apiKey = '605da0b99648ed33e3e074aa75e4db7f';
 
   return (
       <ScrollView contentContainerStyle={styles.container}>
@@ -32,7 +30,6 @@ export default function TabOneScreen() {
         <Text style={styles.headerText}>Die besten Filme aller Zeiten</Text>
         <TopRatedMovies/>
         <EditScreenInfo path="app/(tabs)/index.tsx" />
-
       </ScrollView>
   );
 }
