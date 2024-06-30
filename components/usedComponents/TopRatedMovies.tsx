@@ -1,7 +1,8 @@
-import { StyleSheet, Image, ScrollView } from "react-native";
+import {StyleSheet, Image, ScrollView, Pressable} from "react-native";
 import { Text, View } from '@/components/Themed';
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import {Link} from "expo-router";
 
 interface Movies {
     id: number;
@@ -37,15 +38,25 @@ const TopRatedMovies = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.moviesContainer}>
             {movies.map((item) => (
-                <View style={styles.movieContainer} key={item.id}>
-                    {item.poster_path && (
-                        <Image
-                            source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
-                            style={styles.poster}
-                            alt={`${item.title} Poster`}
-                        />
-                    )}
-                    <Text style={styles.title}>{item.title.length > 19 ? `${item.title.slice(0, 19)}...` : item.title}</Text>
+                <View className="mr-6" key={item.id}>
+                    <Link href={`/Detail?id=${item.id}`} asChild>
+                        <Pressable>
+                            {({ pressed }) => (
+                                <View className="mr-6 items-center">
+                                    {item.poster_path && (
+                                        <>
+                                            <Image
+                                                source={{ uri: `https://image.tmdb.org/t/p/w500${item.poster_path}` }}
+                                                style={[styles.poster, { opacity: pressed ? 0.5 : 1 }]}
+                                                alt={`${item.title} Poster`}/>
+                                        </>
+                                    )}
+                                    <Text style={styles.title}>{item.title.length > 19 ? `${item.title.slice(0, 19)}...` : item.title}</Text>
+                                    <Text></Text>
+                                </View>
+                            )}
+                        </Pressable>
+                    </Link>
                 </View>
             ))}
         </ScrollView>
