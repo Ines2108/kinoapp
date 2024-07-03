@@ -3,11 +3,13 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { ArrowLeftIcon, ChevronLeftIcon } from 'react-native-heroicons/outline';
-import { HeartIcon} from 'react-native-heroicons/solid';
+import { HeartIcon as SolidHeartIcon } from 'react-native-heroicons/solid';
+import { HeartIcon as OutlineHeartIcon } from 'react-native-heroicons/outline';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {useLocalSearchParams} from "expo-router";
 import axios from "axios";
 import { StatusBar } from 'expo-status-bar';
+import {useFavorites} from "@/context/FavoritesContext";
 
 
 
@@ -44,9 +46,11 @@ export default function MovieScreen() {
 
     const [movie, setMovie] = useState<Movie | null>(null);
     const [cast, setCast] = useState<Cast[]>([]);
+    const { favorites, addFavorite, removeFavorite } = useFavorites();
     const apiKey = '605da0b99648ed33e3e074aa75e4db7f';
     const detailUrl = `https://api.themoviedb.org/3/movie/${id}`
     const castUrl = `https://api.themoviedb.org/3/movie/${id}/credits`;
+
 
 
     useEffect(() => {
@@ -78,6 +82,17 @@ export default function MovieScreen() {
             console.error('Error fetching cast: ', error);
         });
     };
+
+    const isFavorite = favorites.some(favMovie => favMovie.id === movie?.id);
+
+    const toggleFavorite = () => {
+        if (isFavorite && movie) {
+            removeFavorite(movie.id);
+        } else if (movie) {
+            addFavorite(movie);
+        }
+    };
+
     if(!movie){
         return <Text>Loading...</Text>
     }
@@ -108,6 +123,17 @@ export default function MovieScreen() {
                 <Text className="text-white mb-6">{movie.genres.map((genre) => genre.name).join(' • ')}</Text>
                 <Text className="text-white mx-4 mb-6 text-justify">{movie.overview}</Text>
 
+                <TouchableOpacity onPress={toggleFavorite} style={styles.favoriteButton}>
+                    {isFavorite ? (
+                        <SolidHeartIcon color="red" size={30} />
+                    ) : (
+                        <OutlineHeartIcon color="red" size={30} />
+                    )}
+                    <Text className="text-white font-bold ml-2">
+                        {isFavorite ? 'Film aus den Favoriten entfernen' : 'Film zu den Favoriten hinzufügen'}
+                    </Text>
+                </TouchableOpacity>
+
                 <Text className="text-white font-bold ">Movie Cast</Text>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} className="px-2">
                 {cast.map((actor) => (
@@ -123,7 +149,7 @@ export default function MovieScreen() {
                             <Image
                                 source={{ uri: fallbackPersonImage }}
                                 alt={`${actor.name} Profile (Fallback)`}
-                                className="w-24 h-24 rounded-full mx-2 mb-2"ç
+                                className="w-24 h-24 rounded-full mx-2 mb-2"
                             />
                         )}
                         <Text className="text-white text-center text-xs ">
@@ -141,8 +167,10 @@ export default function MovieScreen() {
 }
 
 const styles = StyleSheet.create({
-
-
+    favoriteButton: {
+        marginVertical: 20,
+        alignItems: 'center',
+    },
     title: {
         fontSize: 16,
         fontWeight: 'bold',
