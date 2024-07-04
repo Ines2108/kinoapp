@@ -1,5 +1,5 @@
-// FavoritesContext.tsx
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react'; // Importiere ReactNode
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Movie {
     id: number;
@@ -14,25 +14,52 @@ interface FavoritesContextType {
     removeFavorite: (movieId: number) => void;
 }
 
-const FavoritesContext = createContext<FavoritesContextType | undefined>(undefined);
+const FavoritesContext = createContext<FavoritesContextType>({
+    favorites: [],
+    addFavorite: () => {},
+    removeFavorite: () => {},
+});
 
-export const useFavorites = () => {
-    const context = useContext(FavoritesContext);
-    if (!context) {
-        throw new Error('useFavorites must be used within a FavoritesProvider');
-    }
-    return context;
-};
+// Definiere eine Props-Schnittstelle für den Provider
+interface FavoritesProviderProps {
+    children: ReactNode; // Verwende ReactNode für 'children'
+}
 
-export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
+export const FavoritesProvider: React.FC<FavoritesProviderProps> = ({ children }) => {
     const [favorites, setFavorites] = useState<Movie[]>([]);
 
+    useEffect(() => {
+        loadFavorites();
+    }, []);
+
+    const loadFavorites = async () => {
+        try {
+            const favoritesData = await AsyncStorage.getItem('favorites');
+            if (favoritesData !== null) {
+                setFavorites(JSON.parse(favoritesData));
+            }
+        } catch (error) {
+            console.error('Error loading favorites: ', error);
+        }
+    };
+
+    const saveFavorites = async (updatedFavorites: Movie[]) => {
+        try {
+            await AsyncStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+            setFavorites(updatedFavorites);
+        } catch (error) {
+            console.error('Error saving favorites: ', error);
+        }
+    };
+
     const addFavorite = (movie: Movie) => {
-        setFavorites((prevFavorites) => [...prevFavorites, movie]);
+        const updatedFavorites = [...favorites, movie];
+        saveFavorites(updatedFavorites);
     };
 
     const removeFavorite = (movieId: number) => {
-        setFavorites((prevFavorites) => prevFavorites.filter(movie => movie.id !== movieId));
+        const updatedFavorites = favorites.filter((movie) => movie.id !== movieId);
+        saveFavorites(updatedFavorites);
     };
 
     return (
@@ -41,3 +68,5 @@ export const FavoritesProvider = ({ children }: { children: ReactNode }) => {
         </FavoritesContext.Provider>
     );
 };
+
+export const useFavorites = () => useContext(FavoritesContext);

@@ -68,6 +68,13 @@ export default function TabLayout() {
             )
         }}
       />
+        <Tabs.Screen
+            name="review"
+            options={{
+                title: 'Bewertungen',
+                tabBarIcon: ({ color }) => <TabBarIcon name="star" color={color} />,
+            }}
+        />
     </Tabs>
   );
 }

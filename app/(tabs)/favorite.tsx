@@ -1,8 +1,7 @@
 import React from 'react';
-import {ScrollView, Image, TouchableOpacity, Text, View, Pressable, StyleSheet} from 'react-native';
+import {ScrollView, Image, TouchableOpacity, Text, View, StyleSheet, Pressable} from 'react-native';
 import { useFavorites } from '@/context/FavoritesContext';
-import { useNavigation } from '@react-navigation/native';
-import {Link} from "expo-router";
+import { Link } from 'expo-router';
 
 interface Movies {
     id: number;
@@ -13,7 +12,6 @@ interface Movies {
 
 export default function FavoriteScreen() {
     const { favorites, removeFavorite } = useFavorites();
-    const navigation = useNavigation();
 
     return (
         <ScrollView contentContainerStyle={{ padding: 20, alignItems: 'center' }} className="bg-black">
@@ -31,15 +29,13 @@ export default function FavoriteScreen() {
                                 {({ pressed }) => (
                                     <View className="items-center">
                                         {movie.poster_path && (
-                                            <>
-                                                <Image
-                                                    source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
-                                                    style={[styles.poster, { opacity: pressed ? 0.5 : 1 }]}
-                                                    alt={`${movie.title} Poster`}/>
-                                            </>
+                                            <Image
+                                                source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
+                                                style={[styles.poster, { opacity: pressed ? 0.5 : 1 }]}
+                                                alt={`${movie.title} Poster`}
+                                            />
                                         )}
                                         <Text style={styles.title}>{movie.title.length > 19 ? `${movie.title.slice(0, 19)}...` : movie.title}</Text>
-                                        <Text></Text>
                                     </View>
                                 )}
                             </Pressable>
