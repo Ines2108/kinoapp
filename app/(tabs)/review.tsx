@@ -44,17 +44,15 @@ const Review: React.FC = () => {
         }
     };
 
+
     return (
         <ScrollView contentContainerStyle={{ padding: 20, alignItems: 'center' }} className="bg-black">
             <Text className="text-2xl font-bold my-5 text-center text-white">Deine Bewertungen</Text>
-            <Text className="text-lg font-bold my-5 text-center text-white">
-                Hier findest du deine Filmbewertungen:
-            </Text>
 
             {movieReviews.length > 0 ? (
                 movieReviews.map((review) => (
-                    <View key={review?.movieId} className="w-11/12 bg-neutral-900 p-4 mb-5">
-                        <Text className="text-white font-bold text-lg">{review?.title}</Text>
+                    <View key={review?.movieId} className="w-11/12 bg-neutral-800 p-4 mb-5 rounded-lg">
+                        <Text className="text-white font-bold text-lg text-orange-200">{review?.title}</Text>
                         <Text className="text-white">Bewertung: {review?.rating}/5 Sterne</Text>
                         <Text className="text-white">Bewertungstext: {review?.reviewText}</Text>
                         <Text className="text-white">Gesehen in: {review?.reviewPlace}</Text>
@@ -63,8 +61,8 @@ const Review: React.FC = () => {
                         {review?.image && (
                             <Image source={{ uri: review.image }} style={{ width: 200, height: 200, marginTop: 10 }} />
                         )}
-                        <TouchableOpacity onPress={() => deleteReview(review.movieId)} className="mt-2">
-                            <Text className="text-red-500">Bewertung löschen</Text>
+                        <TouchableOpacity onPress={() => deleteReview(review.movieId)} className="rounded overflow-hidden mt-2">
+                            <Text className="text-white bg-orange-500 p-2">Bewertung löschen</Text>
                         </TouchableOpacity>
                     </View>
                 ))

@@ -18,8 +18,8 @@ export default function TabOneScreen() {
 
   return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.welcomeText}>Herzlich Willkommen bei unserer Kinoapp!</Text>
-        <Text style={styles.infoText}>Hier findest du die neuesten Kinofilme, welche du jederzeit herzen und bewerten kannst. Du findest deine Filme unter "Favoriten".</Text>
+        <Text style={styles.welcomeText} className="text-orange-500">Willkommen bei Cinemy!</Text>
+        <Text style={styles.infoText}>Hier findest du die neuesten Kinofilme, welche du jederzeit herzen und bewerten kannst.</Text>
         <Text style={styles.headerText}>Derzeit beliebt</Text>
         <PopularMovies/>
         <Text style={styles.headerText}>Aktuell im Kino</Text>
@@ -65,14 +65,14 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   welcomeText: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
     textAlign: 'center',
     marginVertical: 20,
   },
   infoText: {
-    fontSize: 18,
+    fontSize: 16,
     textAlign: 'center',
-    marginVertical: 20,
+    marginVertical: 10,
   },
 });

@@ -15,15 +15,15 @@ export default function FavoriteScreen() {
 
     return (
         <ScrollView contentContainerStyle={{ padding: 20, alignItems: 'center' }} className="bg-black">
-            <Text className="text-2xl font-bold my-10 text-center text-white">Deine Favoriten</Text>
-            <Text className="text-lg font-bold my-5 text-center text-white">
+            <Text className="text-2xl font-bold my-5 text-center text-white">Deine Favoriten</Text>
+            <Text className="text-base font-semibold mt-2 mb-6 text-center text-white">
                 Hier findest du deine geherzten Kinofilme, welche du hier jederzeit bewerten oder entfernen kannst.
             </Text>
             {favorites.length === 0 ? (
                 <Text className="text-lg my-5 text-center text-gray-500">Du hast noch keine Favoriten hinzugefügt.</Text>
             ) : (
                 favorites.map((movie) => (
-                    <View key={movie.id} className="mb-20">
+                    <View key={movie.id} className=" bg-neutral-800 p-4 mb-5 rounded-lg">
                         <Link href={`/Detail?id=${movie.id}`} asChild>
                             <Pressable>
                                 {({ pressed }) => (
@@ -41,10 +41,10 @@ export default function FavoriteScreen() {
                             </Pressable>
                         </Link>
                         <TouchableOpacity
-                            className="p-3 bg-red-500 rounded"
+                            className="p-3 bg-orange-500 rounded"
                             onPress={() => removeFavorite(movie.id)}
                         >
-                            <Text className="text-white text-center font-bold">Entfernen</Text>
+                            <Text className="text-white text-center font-bold rounded">Entfernen</Text>
                         </TouchableOpacity>
                     </View>
                 ))

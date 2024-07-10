@@ -53,7 +53,6 @@ interface Movie {
 export default function MovieScreen() {
     const route = useRoute()
     const { id } = route.params as { id: string }
-
     const [movie, setMovie] = useState<Movie | null>(null)
     const [cast, setCast] = useState<Cast[]>([])
     const { favorites, addFavorite, removeFavorite } = useFavorites()
@@ -62,7 +61,7 @@ export default function MovieScreen() {
     const [reviewText, setReviewText] = useState('')
     const [reviewPlace, setReviewPlace] = useState('')
     const [reviewPeople, setReviewPeople] = useState('')
-    const [reviewDate, setReviewDate] = useState(new Date()) // Standardmäßig auf das aktuelle Datum setzen
+    const [reviewDate, setReviewDate] = useState('') // Standardmäßig auf das aktuelle Datum setzen
     const [hasReviewed, setHasReviewed] = useState(false)
     const [image, setImage] = useState<string | null>(null)
 
@@ -118,12 +117,12 @@ export default function MovieScreen() {
         setHasReviewed(true);
         const ratingData = {
             movieId: movie.id,
-            title: movie.title,
+            title: movie.title ,
             rating: rating,
             reviewText: reviewText,
             reviewPlace: reviewPlace,
             reviewPeople: reviewPeople,
-            reviewDate: reviewDate.toISOString(), // Convert date to string format
+            reviewDate: reviewDate,
             image: image || '',  // Ensure image path is included or empty string
         };
 
@@ -226,7 +225,7 @@ export default function MovieScreen() {
                     <View className="flex items-center mt-4">
                         <TouchableOpacity
                             onPress={handleOpenRatingModal}
-                            className="bg-orange-400 p-2 rounded mb-10"
+                            className="bg-orange-500 p-2 rounded mb-10"
                         >
                             <Text className="text-white font-bold">Bewertung abgeben</Text>
                         </TouchableOpacity>
@@ -234,8 +233,9 @@ export default function MovieScreen() {
 
                     {showRatingModal && (
                         <View className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-70 justify-center items-center p-5">
-                            <View className="bg-black p-5 rounded w-full">
-                                <Text className="mb-2 text-lg font-bold text-white">Bewerte den Film "{movie.title}"</Text>
+                            <View className="bg-black p-5 rounded w-full mt-48">
+                                <Text className="mb-4 text-lg font-bold text-white">Bewerte den Film "{movie.title}"</Text>
+                                <Text className="mb-6 text-orange-200 text-center">Bitte beachte: Wenn du bereits eine Bewertung für den Film erstellt hast, wird diese überschrieben!"</Text>
                                 <MovieRating rating={rating} onRatingChange={setRating} />
                                 <TextInput
                                     placeholder="Bewertungstext"
@@ -255,7 +255,13 @@ export default function MovieScreen() {
                                     onChangeText={setReviewPeople}
                                     className="border border-gray-300 text-white p-2 my-2"
                                 />
-                                <TouchableOpacity onPress={pickImage} className="bg-black p-2 rounded my-2 border-2 border-orange-500">
+                                <TextInput
+                                    placeholder="Wann hast du den Film gesehen?"
+                                    value={reviewDate}
+                                    onChangeText={setReviewDate}
+                                    className="border border-gray-300 text-white p-2 my-2"
+                                />
+                                <TouchableOpacity onPress={pickImage} className="bg-black p-2 rounded my-2 mb-6 border-2 border-orange-500">
                                     <Text className="text-orange-500 text-center ">Bild hochladen</Text>
                                 </TouchableOpacity>
                                 {image && (
