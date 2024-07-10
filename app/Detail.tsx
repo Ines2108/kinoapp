@@ -9,7 +9,7 @@ import {
     Button,
     TextInput,
     KeyboardAvoidingView,
-    TouchableWithoutFeedback, Keyboard,
+    TouchableWithoutFeedback, Keyboard, StyleSheet,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useRoute } from '@react-navigation/native'
@@ -48,17 +48,6 @@ interface Movie {
     status: string
     genres: Genre[]
     overview: string
-}
-
-interface ReviewData {
-    movieId: number;
-    title: string;
-    rating: number;
-    reviewText: string;
-    reviewPlace: string;
-    reviewPeople: string;
-    reviewDate: string;
-    image: string;
 }
 
 export default function MovieScreen() {
@@ -216,8 +205,8 @@ export default function MovieScreen() {
 
                         <Text className="text-white font-bold">Movie Cast</Text>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="my-4">
-                            {cast.map((castMember) => (
-                                <View key={castMember.id} className="flex items-center m-2">
+                            {cast.map((castMember, index) => (
+                                <View key={`${castMember.id}-${index}`} className="flex items-center m-2">
                                     <Image
                                         source={{
                                             uri: castMember.profile_path
@@ -237,7 +226,7 @@ export default function MovieScreen() {
                     <View className="flex items-center mt-4">
                         <TouchableOpacity
                             onPress={handleOpenRatingModal}
-                            className="bg-purple-600 p-2 rounded mb-10"
+                            className="bg-orange-400 p-2 rounded mb-10"
                         >
                             <Text className="text-white font-bold">Bewertung abgeben</Text>
                         </TouchableOpacity>
@@ -266,14 +255,18 @@ export default function MovieScreen() {
                                     onChangeText={setReviewPeople}
                                     className="border border-gray-300 text-white p-2 my-2"
                                 />
-                                <TouchableOpacity onPress={pickImage} className="bg-red-600 p-2 rounded my-2">
-                                    <Text className="text-white text-center">Bild hochladen</Text>
+                                <TouchableOpacity onPress={pickImage} className="bg-black p-2 rounded my-2 border-2 border-orange-500">
+                                    <Text className="text-orange-500 text-center ">Bild hochladen</Text>
                                 </TouchableOpacity>
                                 {image && (
                                     <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 10 }} />
                                 )}
-                                <Button title="Speichern" onPress={saveRating} />
-                                <Button title="Abbrechen" onPress={() => setShowRatingModal(false)} />
+                                <TouchableOpacity style={styles.button} onPress={saveRating}>
+                                    <Text style={styles.buttonText}>Speichern</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.button2} onPress={() => setShowRatingModal(false)}>
+                                    <Text style={styles.buttonText}>Abbrechen</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     )}
@@ -282,3 +275,31 @@ export default function MovieScreen() {
         </KeyboardAvoidingView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        backgroundColor: '#F47521',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    button2: {
+        backgroundColor: '#F4A672',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
+});
+
+
+

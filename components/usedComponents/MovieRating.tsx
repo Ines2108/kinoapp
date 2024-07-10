@@ -18,9 +18,9 @@ const MovieRating: React.FC<MovieRatingProps> = ({ rating, onRatingChange }) => 
             {[1, 2, 3, 4, 5].map((star) => (
                 <TouchableOpacity key={star} onPress={() => handleRating(star)}>
                     {rating >= star ? (
-                        <SolidStarIcon color="gold" size={30} />
+                        <SolidStarIcon color="orange" size={30} />
                     ) : (
-                        <OutlineStarIcon color="gold" size={30} />
+                        <OutlineStarIcon color="orange" size={30} />
                     )}
                 </TouchableOpacity>
             ))}
