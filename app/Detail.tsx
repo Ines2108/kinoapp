@@ -267,7 +267,7 @@ export default function MovieScreen() {
                                 {image && (
                                     <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 10 }} />
                                 )}
-                                <TouchableOpacity style={styles.button} onPress={saveRating}>
+                                <TouchableOpacity style={styles.button} onPress={saveRating} className="mt-6">
                                     <Text style={styles.buttonText}>Speichern</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.button2} onPress={() => setShowRatingModal(false)}>

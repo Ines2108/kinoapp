@@ -21,7 +21,7 @@ export default function ModalScreen() {
         <View className="my-8 h-px w-4/5 bg-gray-300 dark:bg-gray-700" />
         <Text className="text-lg text-center mb-5">
           Mit unserer App "Cinemy" kannst du Bewertungen und Rezensionen zu Filmen schreiben,
-          Erinnerungen in Form von Selfies bewahren und diese besonderen Momente mit deinen Freund*innen teilen.
+          Erinnerungen in Form von Selfies bewahren.
         </Text>
         {/* Use a light status bar on iOS to account for the black space above the modal */}
         <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
