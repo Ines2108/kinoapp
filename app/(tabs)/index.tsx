@@ -17,10 +17,10 @@ interface Movies {
 export default function TabOneScreen() {
 
   return (
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView contentContainerStyle={styles.container} className="bg-black">
         <Text style={styles.welcomeText} className="text-orange-500">Willkommen bei Cinemy!</Text>
-        <Text style={styles.infoText}>Hier findest du die neuesten Kinofilme, welche du jederzeit herzen und bewerten kannst.</Text>
-        <Text style={styles.headerText}>Derzeit beliebt</Text>
+        <Text style={styles.infoText} className="text-white">Hier findest du die neuesten Kinofilme, welche du jederzeit herzen und bewerten kannst.</Text>
+        <Text style={styles.headerText} >Derzeit beliebt</Text>
         <PopularMovies/>
         <Text style={styles.headerText}>Aktuell im Kino</Text>
         <CurrentCinemaMovies/>

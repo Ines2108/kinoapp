@@ -38,11 +38,11 @@ const CurrentCinemaMovies = () => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.moviesContainer}>
             {movies.map((item) => (
-                <View className="mr-6" key={item.id}>
+                <View className="mr-6" key={item.id} className="bg-black">
                     <Link href={`/Detail?id=${item.id}`} asChild>
-                        <Pressable>
+                        <Pressable >
                             {({ pressed }) => (
-                                <View className="mr-6 items-center">
+                                <View className="mr-6 items-center bg-black">
                                     {item.poster_path && (
                                         <>
                                             <Image
@@ -51,7 +51,7 @@ const CurrentCinemaMovies = () => {
                                                 alt={`${item.title} Poster`}/>
                                         </>
                                     )}
-                                    <Text style={styles.title}>{item.title.length > 19 ? `${item.title.slice(0, 19)}...` : item.title}</Text>
+                                    <Text style={styles.title}className="text-white">{item.title.length > 17 ? `${item.title.slice(0, 17)}...` : item.title} </Text>
                                     <Text></Text>
                                 </View>
                             )}
