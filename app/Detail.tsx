@@ -205,8 +205,8 @@ export default function MovieScreen() {
 
                         <Text className="text-white font-bold">Movie Cast</Text>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="my-4">
-                            {cast.map((castMember) => (
-                                <View key={castMember.id} className="flex items-center m-2">
+                            {cast.map((castMember, index) => (
+                                <View key={`${castMember.id}-${index}`} className="flex items-center m-2">
                                     <Image
                                         source={{
                                             uri: castMember.profile_path
