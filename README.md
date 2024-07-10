@@ -1,7 +1,7 @@
 # Cinemy - Kinofilm-Bewertungs-App
 
 Stellen Sie sich vor, Sie könnten jeden Kinobesuch wie ein persönliches Abenteuer festhalten – genau das ermöglicht unsere brandneue App "Cinemy".
-Mit "Cinemy" kann man nicht nur Bewertungen und Rezensionen zu Filmen schreiben, sondern auch Erinnerungen in Form von Selfies bewahren und diese besonderen Momente mit Freund*innen teilen.
+Mit "Cinemy" kann man nicht nur Bewertungen und Rezensionen zu Filmen schreiben, sondern auch Erinnerungen in Form von Selfies bewahren.
 
 Diese App wurde im Rahmen der Lehrveranstaltung Mobile Web Apps mit React Native und Expo Go entwickelt.
 
