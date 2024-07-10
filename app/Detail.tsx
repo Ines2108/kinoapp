@@ -246,7 +246,7 @@ export default function MovieScreen() {
                     {showRatingModal && (
                         <View className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-70 justify-center items-center p-5">
                             <View className="bg-black p-5 rounded w-full">
-                                <Text className="mb-2 text-lg font-bold">Bewerte den Film</Text>
+                                <Text className="mb-2 text-lg font-bold text-white">Bewerte den Film "{movie.title}"</Text>
                                 <MovieRating rating={rating} onRatingChange={setRating} />
                                 <TextInput
                                     placeholder="Bewertungstext"
