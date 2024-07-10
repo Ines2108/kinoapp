@@ -53,7 +53,7 @@ const Review: React.FC = () => {
 
             {movieReviews.length > 0 ? (
                 movieReviews.map((review) => (
-                    <View key={review.movieId} className="w-11/12 bg-neutral-900 p-4 mb-5">
+                    <View key={review?.movieId} className="w-11/12 bg-neutral-900 p-4 mb-5">
                         <Text className="text-white font-bold text-lg">{review?.title}</Text>
                         <Text className="text-white">Bewertung: {review?.rating}/5 Sterne</Text>
                         <Text className="text-white">Bewertungstext: {review?.reviewText}</Text>

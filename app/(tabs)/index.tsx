@@ -1,5 +1,4 @@
 import { StyleSheet, ScrollView } from "react-native";
-import EditScreenInfo from '@/components/EditScreenInfo';
 import { Text, View } from '@/components/Themed';
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -29,7 +28,6 @@ export default function TabOneScreen() {
         <UpcomingCinemaMovies/>
         <Text style={styles.headerText}>Die besten Filme aller Zeiten</Text>
         <TopRatedMovies/>
-        <EditScreenInfo path="app/(tabs)/index.tsx" />
       </ScrollView>
   );
 }

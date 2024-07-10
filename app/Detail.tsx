@@ -9,7 +9,7 @@ import {
     Button,
     TextInput,
     KeyboardAvoidingView,
-    TouchableWithoutFeedback, Keyboard,
+    TouchableWithoutFeedback, Keyboard, StyleSheet,
 } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { useRoute } from '@react-navigation/native'
@@ -48,17 +48,6 @@ interface Movie {
     status: string
     genres: Genre[]
     overview: string
-}
-
-interface ReviewData {
-    movieId: number;
-    title: string;
-    rating: number;
-    reviewText: string;
-    reviewPlace: string;
-    reviewPeople: string;
-    reviewDate: string;
-    image: string;
 }
 
 export default function MovieScreen() {
@@ -237,7 +226,7 @@ export default function MovieScreen() {
                     <View className="flex items-center mt-4">
                         <TouchableOpacity
                             onPress={handleOpenRatingModal}
-                            className="bg-purple-600 p-2 rounded mb-10"
+                            className="bg-orange-400 p-2 rounded mb-10"
                         >
                             <Text className="text-white font-bold">Bewertung abgeben</Text>
                         </TouchableOpacity>
@@ -246,7 +235,7 @@ export default function MovieScreen() {
                     {showRatingModal && (
                         <View className="absolute top-0 left-0 right-0 bottom-0 bg-black bg-opacity-70 justify-center items-center p-5">
                             <View className="bg-black p-5 rounded w-full">
-                                <Text className="mb-2 text-lg font-bold">Bewerte den Film</Text>
+                                <Text className="mb-2 text-lg font-bold text-white">Bewerte den Film "{movie.title}"</Text>
                                 <MovieRating rating={rating} onRatingChange={setRating} />
                                 <TextInput
                                     placeholder="Bewertungstext"
@@ -266,14 +255,18 @@ export default function MovieScreen() {
                                     onChangeText={setReviewPeople}
                                     className="border border-gray-300 text-white p-2 my-2"
                                 />
-                                <TouchableOpacity onPress={pickImage} className="bg-red-600 p-2 rounded my-2">
-                                    <Text className="text-white text-center">Bild hochladen</Text>
+                                <TouchableOpacity onPress={pickImage} className="bg-black p-2 rounded my-2 border-2 border-orange-500">
+                                    <Text className="text-orange-500 text-center ">Bild hochladen</Text>
                                 </TouchableOpacity>
                                 {image && (
                                     <Image source={{ uri: image }} style={{ width: 200, height: 200, marginTop: 10 }} />
                                 )}
-                                <Button title="Speichern" onPress={saveRating} />
-                                <Button title="Abbrechen" onPress={() => setShowRatingModal(false)} />
+                                <TouchableOpacity style={styles.button} onPress={saveRating}>
+                                    <Text style={styles.buttonText}>Speichern</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.button2} onPress={() => setShowRatingModal(false)}>
+                                    <Text style={styles.buttonText}>Abbrechen</Text>
+                                </TouchableOpacity>
                             </View>
                         </View>
                     )}
@@ -282,3 +275,31 @@ export default function MovieScreen() {
         </KeyboardAvoidingView>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        backgroundColor: '#F47521',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    button2: {
+        backgroundColor: '#F4A672',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontWeight: 'bold',
+    },
+});
+
+
+
